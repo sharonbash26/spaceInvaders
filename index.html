@@ -8,20 +8,25 @@
     <link rel="stylesheet" href="main.css">
 </head>
 
-<body onkeyup="onHandleKey(event)" onload="onInit()" >
+<body onkeyup="onHandleKey(event)" onload="onInit()">
     <h1>Space Invaders</h1>
-<h4>Score:<span> 0</span></h4>
-<button class="restart-btn" onclick="onInit()">Start Game</button>
+    <h4>Score:<span> 0</span></h4>
+
+    <button class="start-game" onclick="onInit()">Start Game</button>  
+
+    <div class="modal">
+        <h3 class="msg"></h3>
+        <button class="restart-btn" onclick="restart()">Restart Game</button> 
+    </div>
+
     <table>
         <tbody class="board"></tbody>
-      </table>
+    </table>
 
-
-
-<script src="js/util.js"></script>
-<script src="js/alien.js"></script>
-<script src="js/hero.js"></script>
-<script src="js/game.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/alien.js"></script>
+    <script src="js/hero.js"></script>
+    <script src="js/game.js"></script>
 </body>
 
 </html>

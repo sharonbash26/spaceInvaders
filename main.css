@@ -30,24 +30,52 @@ h1{
     font-family: "Vibur", sans-serif;   
 }
 
-table {
-    margin: auto;
-   
+.modal {
+    display: none;
+    border: solid 3px grey;
+    width: 300px;
+    height: 200px;
+    background-color: rgb(222, 226, 228);
+    color: black;
+    font-size: 50px;
+    position: absolute;
+    top: 200px;
+    left: calc(50% - 150px);
+    text-align: center;
+  }
+
+table,td {
+    border: 2px solid rgb(239, 234, 234);  /* after this change to none !!!*/
+    border-collapse: collapse;
+    font-size: 15px; 
+    margin: auto;  
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    transition: 0.5s;
+    padding: 10px;
+    position: relative;
 }
+.restart-btn {
+    margin-top: 20px;
+    background-color: rgb(106, 225, 185);
+    color: rgb(230, 221, 221);
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+
+
 h4{
     color: #efe9e9;
     font-family: "Vibur";
     font-size: x-large;
-
-  
-   
-
 }
 .cell img {
     width: 25px;
     height: auto;
 }
-.restart-btn{
+.start-game{
     position: absolute;
     top: 0;
     left: 0;

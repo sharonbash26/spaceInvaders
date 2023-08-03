@@ -15,8 +15,8 @@ const GROUND_IMG = '🟫'
 const ALIEN_IMG = '👽'
 const LASER_IMG='❗'
 
-
-var gCountAlien = 0
+var gIsVictory=false
+var gScore = 0
 // Matrix of cell objects. e.g.: {type: SKY, gameObject: ALIEN}
 var gBoard
 var gGame = {
@@ -32,6 +32,8 @@ function onInit() {
     console.table(gBoard)
     renderBoard(gBoard)
 
+ 
+ 
 }
 
 function createCell(gameObject = null) {
@@ -60,17 +62,34 @@ function putAliensInBoard(size, board) {
     for (var i = 0; i < ALIEN_ROW_COUNT; i++) {
         for (var j = size - ALIEN_ROW_LENGTH; j < size; j++) {
             board[i][j].gameObject = ALIEN
+            gCountAliens++
         }
     }
     return board
 }
 
+function updateScore(count){
+    var elScore=document.querySelector('h4 span')
+    elScore.innerText=count
+}
+
+function isVictory(){
+    if(gScore===gCountAliens){
+     //   var msgBtn='Restart Game'
+        var msgModal='You Win!'
+        openModal(msgModal)
+      //  changeTextInBtn(msgBtn)
+        return true
+    }
+    return false
+}
+
+function restart(){
+    console.log('2')
+ //   changeTextInBtn('Start Game')
+    closeModal()
 
 
+}
 
-
-
-
-
-
-//sharon
+//sharon  17:04 3.8 

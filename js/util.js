@@ -31,8 +31,22 @@ function getElCell(pos) {
     return document.querySelector(`[data-i='${pos.i}'][data-j='${pos.j}']`)
 }
 
+function openModal(msg){
+    var elModal=document.querySelector('.modal')
+    var elMsg=elModal.querySelector('.msg')
+    elMsg.innerText=msg
+    elModal.style.display = 'block'
+}
+// function changeTextInBtn(msg){
+//     var elBtn=document.querySelector('.restart-btn')
+//     elBtn.innerText=msg
+// }
 
-
+function closeModal(){
+    var elModal=document.querySelector('.modal')
+    elModal.style.display='none'
+}
+//sharon 3.8. 12:47
 
 
 
