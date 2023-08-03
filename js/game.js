@@ -31,6 +31,7 @@ function onInit() {
     createHero(gBoard)
     console.table(gBoard)
     renderBoard(gBoard)
+    
 
  
  
@@ -74,11 +75,12 @@ function updateScore(count){
 }
 
 function isVictory(){
-    if(gScore===gCountAliens){
+    if(gScore===gCountAliens*10){
      //   var msgBtn='Restart Game'
         var msgModal='You Win!'
         openModal(msgModal)
       //  changeTextInBtn(msgBtn)
+      clearInterval(gIdShootInterval)
         return true
     }
     return false
@@ -92,4 +94,4 @@ function restart(){
 
 }
 
-//sharon  17:04 3.8 
+//sharon  bash 20:47 -3.8!!!
