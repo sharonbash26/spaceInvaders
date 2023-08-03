@@ -4,12 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
     <title>Space Invaders</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 
-<body onload="onInit()" onkeyup="moveHero(event)"></body>
-<div class="board-container"></div>
+<body onkeyup="onHandleKey(event)" onload="onInit()" >
+    <h1>Space Invaders</h1>
+<h4>Score:<span> 0</span></h4>
+<button class="restart-btn" onclick="onInit()">Start Game</button>
+    <table>
+        <tbody class="board"></tbody>
+      </table>
 
 
 

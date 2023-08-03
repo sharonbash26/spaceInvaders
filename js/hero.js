@@ -1,7 +1,12 @@
 'use strict'
-
+//sharon  sharon sharon last update !!!!!!!!!!!!!!!!!!!!!
 var gHero
 const LASER_SPEED = 80
+const HERO = 'HERO'
+const HERO_IMG = '🐱‍👤'
+
+var gScore=0
+
 function createHero(board) {
     var middleLocationHero = Math.floor(BOARD_SIZE / 2)
     gHero = {
@@ -11,45 +16,53 @@ function createHero(board) {
         },
         isShoot: true
     }
-    board[gHero.location.i][gHero.location.j] = HERO
+    board[BOARD_SIZE - 2][middleLocationHero - 1].gameObject = HERO
 }
 
-function moveHero(ev) {
+function moveTo(i, j) {
     if (!gGame.isOn) return
-    const nextLocation = getNextLocation(ev)
-    if (!nextLocation) return
-    if (nextLocation.j > 13 || nextLocation.j < 0) return
-    gBoard[gHero.location.i][gHero.location.j] = EMPTY
-    renderCell(gHero.location, EMPTY)
-    gHero.location.i = nextLocation.i
-    gHero.location.j = nextLocation.j
-    gBoard[nextLocation.i][nextLocation.j] = HERO
-    renderCell(gHero.location, HERO)
+    if (j < 0 || j >= BOARD_SIZE) return
+    gBoard[gHero.location.i][gHero.location.j].gameObject = null
+    updateCell(gHero.location, '')
+    gHero.location.i = i
+    gHero.location.j = j
+    gBoard[gHero.location.i][gHero.location.j].gameObject = HERO
+    updateCell(gHero.location, HERO_IMG)  ///updetCell this is render cell !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 }
 
-function getNextLocation(eventKeyboard) {
-    const nextLocation = {
-        i: gHero.location.i,
-        j: gHero.location.j
-    }
-    switch (eventKeyboard.code) {
-        case 'ArrowRight':
-            nextLocation.j++
-            break;
+function onHandleKey(event) {
+    const i = gHero.location.i
+    const j = gHero.location.j
+    switch (event.key) {
         case 'ArrowLeft':
-            nextLocation.j--
-            break;
+            moveTo(i, j - 1)
+            break
+        case 'ArrowRight':
+            moveTo(i, j + 1)
+            break
     }
-    return nextLocation
 }
 
-
-// Sets an interval for shutting (blinking) the laser up towards aliens
-function shoot() { }
-// renders a LASER at specific cell for short time and removes it
+//pos is location
 
 function blinkLaser(pos) {
-    if (gHero.isShoot) updateCell(pos, LASER)
-    //else updateCell(pos, HERO)
+    if (gHero.isShoot) updateCell(pos, LASER_IMG)
+    else updateCell(pos, '')
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//last update !!!!!!!!!!
+

@@ -1,35 +1,39 @@
 'use strict'
 
-function renderBoard(mat, selector) {
 
-    var strHTML = '<table border="0"><tbody>'
-    for (var i = 0; i < mat.length; i++) {
-
+function renderBoard(board) {
+    var strHTML = ''
+    for (var i = 0; i < board.length; i++) {
         strHTML += '<tr>'
-        for (var j = 0; j < mat[0].length; j++) {
-
-            const cell = mat[i][j]
-            const className = `cell cell-${i}-${j}`
-
-            strHTML += `<td class="${className}">${cell}</td>`
+        for (var j = 0; j < board[0].length; j++) {
+            const cellData = `data-i='${i}' data-j='${j}'`
+            const cellClass = board[i][j].type
+            var cellObject = board[i][j].gameObject || ''
+            if (cellObject === ALIEN) cellObject = ALIEN_IMG
+            if (cellClass === GROUND) cellObject = GROUND_IMG
+            else if (cellObject === HERO) cellObject = HERO_IMG
+            strHTML += `<td class="${cellClass}" ${cellData}>${cellObject} </td>`
         }
         strHTML += '</tr>'
     }
-    strHTML += '</tbody></table>'
-
-    const elContainer = document.querySelector(selector)
-    elContainer.innerHTML = strHTML
-}
-
-// location is an object like this - { i: 2, j: 7 }
-function renderCell(location, value) {
-    // Select the elCell and set the value
-    const elCell = document.querySelector(`.cell-${location.i}-${location.j}`)
-    elCell.innerHTML = value
+    const elBoard = document.querySelector('table')
+    elBoard.innerHTML = strHTML
 }
 
 
-//not sure i want this
+function updateCell(pos, gameObject = null) {
+    gBoard[pos.i][pos.j].gameObject = gameObject
+    var elCell = getElCell(pos)
+    elCell.innerHTML = gameObject || ''
+}
+
 function getElCell(pos) {
     return document.querySelector(`[data-i='${pos.i}'][data-j='${pos.j}']`)
 }
+
+
+
+
+
+
+
