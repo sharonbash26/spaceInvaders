@@ -7,6 +7,7 @@ const HERO_IMG = '🐱‍👤'
 
 var gScore = 0
 var gIdShootInterval = 0
+var gPos = { i: 0, j: 0 }
 
 function createHero(board) {
     var middleLocationHero = Math.floor(BOARD_SIZE / 2)
@@ -33,6 +34,7 @@ function moveTo(i, j) {
 }
 
 function onHandleKey(event) {
+    if (!gGame.isOn) return
     const i = gHero.location.i
     const j = gHero.location.j
     console.log('event', event.key)
@@ -47,295 +49,45 @@ function onHandleKey(event) {
             moveTo(i, j + 1)
             break
         case ' ':
-            gHero.isShoot = true
             shoot()
     }
 }
 
-//pos is location
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-///old blink
-function blinkLaser(pos) {
-    console.log('pos', pos)
-    if (gHero.isShoot) {
-        updateCell(pos, LASER_IMG)
-        gHero.isShoot = false
-    }
-    else {
-        updateCell(pos, '')
-        gHero.isShoot = true
-    }
-}
-
-
-
-
-
-
-//new shoot
 function shoot() {
-    var res = isVictory()
-    console.log('res', res)
-    if (res) {
-        clearInterval(gIdShootInterval)
-        isVictory()
-        return
-    }
-    var pos = { i: 0, j: 0 }
-    pos.i = gHero.location.i - 1
-    pos.j = gHero.location.j
-    if (pos.i < 0) {
-        gHero.isShoot = false
-        clearInterval(gIdShootInterval)
-        return
-    }
+    if (gHero.isShoot) return
+    gHero.isShoot = true
+    gPos.i = gHero.location.i - 1
+    gPos.j = gHero.location.j
+    gIdShootInterval = setInterval(blinkLaser, 80)
 
-    function shootingInterval() {
-        blinkLaser(pos)
-        pos.i = pos.i - 1
-
-        if (pos.i < 0) {
-            clearInterval(gIdShootInterval)
-            gHero.isShoot = false
-        }
-
-        var hitLocation = { i: pos.i, j: pos.j }
-        console.log('hitLocation', hitLocation)
-        console.log('gameob', gBoard[hitLocation.i][hitLocation.j].gameObject)
-        if (gBoard[hitLocation.i][hitLocation.j].gameObject === ALIEN) {
-            updateCell(hitLocation, '')
-            console.log('hit alien')
-            gScore += 10
-            updateScore(gScore)
-            clearInterval(gIdShootInterval)
-        }
-    }
-    gIdShootInterval = setInterval(shootingInterval, 100)
 }
 
+function blinkLaser(pos) {
+    if (!gHero.isShoot) return
+    if (gPos.i < 0) {
+        //updatecell
+        clearInterval(gIdShootInterval)
+        gHero.isShoot=false
+        return
+    }
+    if(gBoard[gPos.i][gPos.j].gameObject===ALIEN){
+        updateCell(gPos, '')
+        updateCell(gPos, LASER_IMG)
+        gScore += 10
+        gCountAliens--
+        updateScore(gScore)
+        if(gCountAliens===0) isVictory()
+        console.log('gcountAliens',gCountAliens)
+        clearInterval(gIdShootInterval)
+        gHero.isShoot=false
+        return
+    }
+        updateCell(gPos, LASER_IMG)
+        setTimeout(() => {
+            if (gBoard[gPos.i][gPos.j].gameObject === '❗') updateCell(gPos, '')  
+            gPos.i = gPos.i - 1
+        }, 500);
+}
 
-
-
-
-
-
-
-
-
-//old shoot 
-// function shoot() {
-//     gIsVictory = isVictory()
-//     if (gIsVictory) {
-//         clearInterval(gIdShootInterval)
-//         isVictory()
-//         return
-//     }
-//     var pos = { i: 0, j: 0 }
-//     pos.i = gHero.location.i - 1
-//     pos.j = gHero.location.j
-//     console.log(pos.i)
-
-//     pos.i = pos.i - 1
-//     if (pos.i <0) {
-//         clearInterval(gIdShootInterval)
-//         gHero.isShoot = false
-//         return
-//     }
-
-//     var hitLocation = { i: pos.i, j: pos.j }
-//     console.log('hitLocation', hitLocation)
-//     console.log('gameob', gBoard[hitLocation.i][hitLocation.j].gameObject)
-//     if (gBoard[hitLocation.i][hitLocation.j].gameObject === ALIEN) {
-//         console.log('hit alien')
-//         gScore += 10
-//         updateScore(gScore)
-//         clearInterval(gIdShootInterval)
-//     }
-
-//     gIdShootInterval = setInterval(() => {
-//         blinkLaser(pos)
-//         pos.i = pos.i - 1
-//     }, 100)
-  
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//last update !!!!!!!!!!
-
+////2:52 4.8-backup !!!!!!!!

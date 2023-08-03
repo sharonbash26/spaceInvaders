@@ -42,10 +42,11 @@ h1{
     top: 200px;
     left: calc(50% - 150px);
     text-align: center;
+    z-index: 1;
   }
 
 table,td {
-    border: 2px solid rgb(239, 234, 234);  /* after this change to none !!!*/
+    border: solid white;  /* after this change to none !!!*/
     border-collapse: collapse;
     font-size: 15px; 
     margin: auto;  
@@ -55,15 +56,18 @@ table,td {
     transition: 0.5s;
     padding: 10px;
     position: relative;
+    cursor: pointer;
+    z-index: 0;
+    
 }
 .restart-btn {
-    margin-top: 20px;
-    background-color: rgb(106, 225, 185);
-    color: rgb(230, 221, 221);
-    padding: 10px;
-    cursor: pointer;
-  }
-  
+  margin-top: 20px;
+  background-color: black;
+  color: rgb(230, 221, 221);
+  padding: 10px;
+  cursor: pointer;
+}
+
 
 
 h4{

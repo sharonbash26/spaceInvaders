@@ -1,3 +1,3 @@
 'use strict'
 
-var gCountAliens
+var gCountAliens=0
